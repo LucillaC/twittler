@@ -3,6 +3,7 @@
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <link rel="stylesheet" href="twittler.css">
   </head>
   <body>
     <script>
@@ -16,7 +17,7 @@
         while(index >= 0){
           var tweet = streams.home[index];
           var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message + " " + tweet.created_at);
+          $tweet.html('@' + tweet.user + ': ' + tweet.message + '<br />' + tweet.created_at);
           $tweet.appendTo($body);
           index -= 1;
         }
@@ -24,8 +25,8 @@
         setInterval(function() {
           for (var x = retainIndex + 1; x < streams.home.length - 1; x++) {
             var tweet = streams.home[x];
-            var $tweet = $('<div></div');
-            $tweet.text('@' + tweet.user + ': ' + tweet.message + " " + tweet.created_at);
+            var $tweet = $('<div></div>');
+            $tweet.html('@' + tweet.user + ': ' + tweet.message + '<br />' + tweet.created_at);
             $tweet.appendTo($body);
             retainIndex = x;
           }
