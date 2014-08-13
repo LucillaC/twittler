@@ -9,9 +9,24 @@
     <script>
       var $body = $('body');
       $body.html('');
-      var index = streams.home.length - 1;
-      var retainIndex = index; //9
+      var index;
+      var retainIndex;
       var newTweetsInterval;
+      var individual = false;
+
+      var originalTweets = function() {
+
+        index = streams.home.length-1;
+        retainIndex = index;
+
+        for ( var x = 0; x < index; x++){
+          var tweet = streams.home[x];
+          var $tweet = $("<div class='div-" + tweet.user + "'></div>");
+          $tweet.html("<strong class='" + tweet.user + "'>@" + tweet.user + '</strong>: ' + tweet.message + '<br />' + tweet.created_at);
+          $tweet.appendTo($body);
+        }
+
+      }
 
       var newTweets = function() {
         newTweetsInterval = setInterval(function() {
@@ -27,22 +42,62 @@
 
       $(document).ready(function(){
 
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $("<div class='div-" + tweet.user + "'></div>");
-          $tweet.html("<strong class='" + tweet.user + "'>@" + tweet.user + '</strong>: ' + tweet.message + '<br />' + tweet.created_at);
-          $tweet.appendTo($body);
-          index -= 1;
-        }
-
+        originalTweets();
         newTweets();
         
       }).on('click', ".shawndrost", function() {
-        console.log("poop");
+        if (individual == false) {
+          $(".div-sharksforcheap").remove();
+          $(".div-mracus").remove();
+          $(".div-douglascalhoun").remove();
+          clearInterval(newTweetsInterval);
+          var $button = $("<div class='back'></div>");
+          $button.html("Return to All Users Twittler Feed");
+          $button.appendTo($body);
+          individual = true;
+        }       
+      }).on('click', ".sharksforcheap", function() {
+        if (individual == false) {
+          $(".div-shawndrost").remove();
+          $(".div-mracus").remove();
+          $(".div-douglascalhoun").remove();
+          clearInterval(newTweetsInterval);
+          var $button = $("<div class='back'></div>");
+          $button.html("Return to All Users Twittler Feed");
+          $button.appendTo($body);
+          individual = true;
+        }       
+      }).on('click', ".mracus", function() {
+        if (individual == false) {
+          $(".div-sharksforcheap").remove();
+          $(".div-shawndrost").remove();
+          $(".div-douglascalhoun").remove();
+          clearInterval(newTweetsInterval);
+          var $button = $("<div class='back'></div>");
+          $button.html("Return to All Users Twittler Feed");
+          $button.appendTo($body);
+          individual = true;
+        }       
+      }).on('click', ".douglascalhoun", function() {
+        if (individual == false) {
+          $(".div-sharksforcheap").remove();
+          $(".div-mracus").remove();
+          $(".div-shawndrost").remove();
+          clearInterval(newTweetsInterval);
+          var $button = $("<div class='back'></div>");
+          $button.html("Return to All Users Twittler Feed");
+          $button.appendTo($body);
+          individual = true;
+        }       
+      }).on('click', ".back", function() {
         $(".div-sharksforcheap").remove();
         $(".div-mracus").remove();
         $(".div-douglascalhoun").remove();
-        clearInterval(newTweetsInterval);       
+        $(".div-shawndrost").remove();
+        $(".back").remove();
+        individual = false;
+        originalTweets();
+        newTweets();
       });
 
     </script>
