@@ -20,24 +20,40 @@
         retainIndex = index;
 
         for ( var x = 0; x < index; x++){
-          var tweet = streams.home[x];
-          var $tweet = $("<div class='div-" + tweet.user + "'></div>");
-          $tweet.html("<strong class='" + tweet.user + "'>@" + tweet.user + '</strong>: ' + tweet.message + '<br />' + tweet.created_at);
-          $tweet.appendTo($body);
+          appendingTweet(x);
         }
 
+      }
+
+      var appendingTweet = function(x) {
+        var tweet = streams.home[x];
+        var $tweet = $("<div class='div-" + tweet.user + "'></div>");
+        $tweet.html("<strong class='" + tweet.user + "'>@" + tweet.user + '</strong>: ' + tweet.message + '<br />' + tweet.created_at);
+        $tweet.appendTo($body);
       }
 
       var newTweets = function() {
         newTweetsInterval = setInterval(function() {
           for (var x = retainIndex + 1; x < streams.home.length - 1; x++) {
-            var tweet = streams.home[x];
-            var $tweet = $("<div class='div-" + tweet.user + "'></div>");
-            $tweet.html("<strong class='" + tweet.user + "'>@" + tweet.user + '</strong>: ' + tweet.message + '<br />' + tweet.created_at);
-            $tweet.appendTo($body);
+            appendingTweet(x);
             retainIndex = x;
           }
         }, 1000);
+      }
+
+      var timeline = function(individual, person1, person2, person3) {
+        if (individual == false) {
+          $(person1).remove();
+          $(person2).remove();
+          $(person3).remove();
+          clearInterval(newTweetsInterval);
+          var $button = $("<div class='back'></div>");
+          $button.html("Return to All Users Twittler Feed");
+          $button.appendTo($body);
+          individual = true;
+
+          return individual;
+        }       
       }
 
       $(document).ready(function(){
@@ -46,49 +62,21 @@
         newTweets();
         
       }).on('click', ".shawndrost", function() {
-        if (individual == false) {
-          $(".div-sharksforcheap").remove();
-          $(".div-mracus").remove();
-          $(".div-douglascalhoun").remove();
-          clearInterval(newTweetsInterval);
-          var $button = $("<div class='back'></div>");
-          $button.html("Return to All Users Twittler Feed");
-          $button.appendTo($body);
-          individual = true;
-        }       
+
+        individual = timeline(individual, ".div-sharksforcheap", ".div-mracus", ".div-douglascalhoun");
+
       }).on('click', ".sharksforcheap", function() {
-        if (individual == false) {
-          $(".div-shawndrost").remove();
-          $(".div-mracus").remove();
-          $(".div-douglascalhoun").remove();
-          clearInterval(newTweetsInterval);
-          var $button = $("<div class='back'></div>");
-          $button.html("Return to All Users Twittler Feed");
-          $button.appendTo($body);
-          individual = true;
-        }       
+        
+        individual = timeline(individual, ".div-shawndrost", ".div-mracus", ".div-douglascalhoun");
+
       }).on('click', ".mracus", function() {
-        if (individual == false) {
-          $(".div-sharksforcheap").remove();
-          $(".div-shawndrost").remove();
-          $(".div-douglascalhoun").remove();
-          clearInterval(newTweetsInterval);
-          var $button = $("<div class='back'></div>");
-          $button.html("Return to All Users Twittler Feed");
-          $button.appendTo($body);
-          individual = true;
-        }       
+
+        individual = timeline(individual, ".div-sharksforcheap", ".div-shawndrost", ".div-douglascalhoun");  
+
       }).on('click', ".douglascalhoun", function() {
-        if (individual == false) {
-          $(".div-sharksforcheap").remove();
-          $(".div-mracus").remove();
-          $(".div-shawndrost").remove();
-          clearInterval(newTweetsInterval);
-          var $button = $("<div class='back'></div>");
-          $button.html("Return to All Users Twittler Feed");
-          $button.appendTo($body);
-          individual = true;
-        }       
+
+        individual = timeline(individual, ".div-sharksforcheap", ".div-mracus", ".div-shawndrost");   
+          
       }).on('click', ".back", function() {
         $(".div-sharksforcheap").remove();
         $(".div-mracus").remove();
