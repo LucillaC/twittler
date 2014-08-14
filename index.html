@@ -41,7 +41,7 @@
         }, 1000);
       }
 
-      var timeline = function(individual, person1, person2, person3) {
+      var timeline = function(person1, person2, person3) {
         if (individual == false) {
           $(person1).remove();
           $(person2).remove();
@@ -51,8 +51,6 @@
           $button.html("Return to All Users Twittler Feed");
           $button.appendTo($body);
           individual = true;
-
-          return individual;
         }       
       }
 
@@ -63,26 +61,22 @@
         
       }).on('click', ".shawndrost", function() {
 
-        individual = timeline(individual, ".div-sharksforcheap", ".div-mracus", ".div-douglascalhoun");
+        timeline(".div-sharksforcheap", ".div-mracus", ".div-douglascalhoun");
 
       }).on('click', ".sharksforcheap", function() {
         
-        individual = timeline(individual, ".div-shawndrost", ".div-mracus", ".div-douglascalhoun");
+        timeline(".div-shawndrost", ".div-mracus", ".div-douglascalhoun");
 
       }).on('click', ".mracus", function() {
 
-        individual = timeline(individual, ".div-sharksforcheap", ".div-shawndrost", ".div-douglascalhoun");  
+        timeline(".div-sharksforcheap", ".div-shawndrost", ".div-douglascalhoun");  
 
       }).on('click', ".douglascalhoun", function() {
 
-        individual = timeline(individual, ".div-sharksforcheap", ".div-mracus", ".div-shawndrost");   
-          
+        timeline(".div-sharksforcheap", ".div-mracus", ".div-shawndrost");   
+
       }).on('click', ".back", function() {
-        $(".div-sharksforcheap").remove();
-        $(".div-mracus").remove();
-        $(".div-douglascalhoun").remove();
-        $(".div-shawndrost").remove();
-        $(".back").remove();
+        $("div").remove();
         individual = false;
         originalTweets();
         newTweets();
